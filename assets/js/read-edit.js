@@ -45,6 +45,15 @@ function readProfile(doc) {
     fb.height = 40;
     fb.width = 40;
 
+    let tgAnchor = document.createElement("a");
+    tgAnchor.href = doc.data().telegram;
+
+    let tg = document.createElement("img");
+    tg.classList.add("contact");
+    tg.src = "assets/img/telegram.svg";
+    tg.height = 40;
+    tg.width = 40;
+
     let githubInput = document.createElement("input");
     githubInput.id = "githubInput";
     githubInput.value = doc.data().github;
@@ -53,11 +62,15 @@ function readProfile(doc) {
     fbInput.id = "fbInput";
     fbInput.value = doc.data().facebook;
 
+    let tgInput = document.createElement("input");
+    tgInput.id = "tgInput";
+    tgInput.value = doc.data().telegram;
+
     let saveContact = document.createElement("button");
     saveContact.id = "saveProfile";
     saveContact.classList.add("btn");
     saveContact.classList.add("btn-primary");
-    saveContact.innerHTML = "Save"
+    saveContact.innerHTML = "Save";
 
     mainDiv.appendChild(fullName);
     mainDiv.appendChild(textArea);
@@ -69,9 +82,14 @@ function readProfile(doc) {
     mainDiv.appendChild(fbAnchor);
     fbAnchor.appendChild(fb);
 
+    mainDiv.appendChild(tgAnchor);
+    tgAnchor.appendChild(tg);
+
     mainDiv.appendChild(githubInput);
     mainDiv.appendChild(fbInput);
+    mainDiv.appendChild(tgInput);
     mainDiv.appendChild(saveContact);
+
 
     saveContact.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -80,7 +98,8 @@ function readProfile(doc) {
         db.collection('others').doc(id).update({
             value: document.getElementById('editAbout').value,
             github: document.getElementById('githubInput').value,
-            facebook: document.getElementById('fbInput').value
+            facebook: document.getElementById('fbInput').value,
+            telegram: document.getElementById('tgInput').value
         });
     });
 }

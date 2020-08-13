@@ -1,12 +1,12 @@
-$("#plus-project").on('click', function() {
+$("#plus-project").on('click', function () {
     $("#add-project-card").toggle("slow");
 });
 
-$("#plus-school").on('click', function() {
+$("#plus-school").on('click', function () {
     $("#add-school-card").toggle("slow");
 });
 
-$("#plus-org").on('click', function() {
+$("#plus-org").on('click', function () {
     $("#add-org-card").toggle("slow");
 });
 
@@ -54,4 +54,3 @@ orgForm.addEventListener('submit', (e) => {
 
     orgForm.reset();
 })
-

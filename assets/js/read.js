@@ -14,41 +14,53 @@ var info;
 var db = firebase.firestore();
 
 function readProfile(doc) {
-     let mainDiv = document.getElementById("details");
+    let mainDiv = document.getElementById("details");
 
-     let intro = document.createElement("p");
-     intro.textContent = doc.data().value;
+    let intro = document.createElement("p");
+    intro.textContent = doc.data().value;
 
-     let githubAnchor = document.createElement("a");
-     githubAnchor.href = doc.data().github;
+    let githubAnchor = document.createElement("a");
+    githubAnchor.href = doc.data().github;
 
-     let github = document.createElement("img");
-     github.classList.add("contact");
-     github.src = "assets/img/github.svg";
-     github.height = 40;
-     github.width = 40;
+    let github = document.createElement("img");
+    github.classList.add("contact");
+    github.src = "assets/img/github.svg";
+    github.height = 40;
+    github.width = 40;
 
-     let fbAnchor = document.createElement("a");
-     fbAnchor.href = doc.data().facebook;
+    let fbAnchor = document.createElement("a");
+    fbAnchor.href = doc.data().facebook;
 
-     let fb = document.createElement("img");
-     fb.classList.add("contact");
-     fb.src = "assets/img/facebook.svg";
-     fb.height = 40;
-     fb.width = 40;
+    let fb = document.createElement("img");
+    fb.classList.add("contact");
+    fb.src = "assets/img/facebook.svg";
+    fb.height = 40;
+    fb.width = 40;
 
-     mainDiv.appendChild(intro);
+    let tgAnchor = document.createElement("a");
+    tgAnchor.href = doc.data().telegram;
 
-     mainDiv.appendChild(githubAnchor);
-     githubAnchor.appendChild(github);
+    let tg = document.createElement("img");
+    tg.classList.add("contact");
+    tg.src = "assets/img/telegram.svg";
+    tg.height = 40;
+    tg.width = 40;
 
-     mainDiv.appendChild(fbAnchor);
-     fbAnchor.appendChild(fb);
+    mainDiv.appendChild(intro);
+
+    mainDiv.appendChild(githubAnchor);
+    githubAnchor.appendChild(github);
+
+    mainDiv.appendChild(fbAnchor);
+    fbAnchor.appendChild(fb);
+
+    mainDiv.appendChild(tgAnchor);
+    tgAnchor.appendChild(tg);
 }
 
-db.collection("others").get().then(function(snapshot) {
-    snapshot.forEach(function(doc) {
-       readProfile(doc);
+db.collection("others").get().then(function (snapshot) {
+    snapshot.forEach(function (doc) {
+        readProfile(doc);
     });
 });
 
@@ -76,14 +88,14 @@ function readProject(doc) {
 
     let info = document.createElement("span");
     info.textContent = doc.data().info;
-    
+
     let link = document.createElement("button");
     link.classList.add("btn");
     link.classList.add("btn-primary");
     link.classList.add("btn-portfolio");
     link.textContent = "Download here!";
-    
-    link.onclick = function() {
+
+    link.onclick = function () {
         window.open(doc.data().link);
     }
     mainDiv.appendChild(card);
@@ -98,8 +110,8 @@ function readProject(doc) {
 
 }
 
-db.collection("projects").get().then(function(snapshot) {
-    snapshot.forEach(function(doc) {
+db.collection("projects").get().then(function (snapshot) {
+    snapshot.forEach(function (doc) {
         readProject(doc);
     });
 });
@@ -120,7 +132,7 @@ function readEduc(doc, i) {
 
     let cardHeader = document.createElement("div");
     cardHeader.classList.add("card-header");
-    
+
     let name = document.createElement("h5");
     name.classList.add("mb-0");
     name.textContent = doc.data().school;
@@ -137,18 +149,16 @@ function readEduc(doc, i) {
 
     mainDiv.appendChild(row);
 
-    if(i % 2) {
+    if (i % 2) {
         num.classList.add("left");
         row.appendChild(num);
         row.appendChild(card);
-    }
-
-    else {
+    } else {
         num.classList.add("right");
         row.appendChild(card);
         row.appendChild(num);
     }
-    
+
 
     card.appendChild(cardHeader);
     cardHeader.appendChild(name);
@@ -158,9 +168,9 @@ function readEduc(doc, i) {
     cardBody.appendChild(years);
 }
 
-db.collection("education").orderBy("year_start").get().then(function(snapshot) {
+db.collection("education").orderBy("year_start").get().then(function (snapshot) {
     let i = 1;
-    snapshot.forEach(function(doc) {
+    snapshot.forEach(function (doc) {
         readEduc(doc, i);
         i++;
     });
@@ -198,12 +208,12 @@ function readOrg(doc) {
     cardHeader.appendChild(orgPos);
 
     card.appendChild(cardBody);
-    
+
     cardBody.appendChild(years);
 }
 
-db.collection("organizations").orderBy("year_start").get().then(function(snapshot) {
-    snapshot.forEach(function(doc) {
+db.collection("organizations").orderBy("year_start").get().then(function (snapshot) {
+    snapshot.forEach(function (doc) {
         readOrg(doc);
     });
 });
